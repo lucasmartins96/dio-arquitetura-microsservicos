@@ -1,25 +1,37 @@
 package one.digital.experts.productcatalog.controller;
 
 import one.digital.experts.productcatalog.model.Product;
-import one.digital.experts.productcatalog.repository.ProductRepository;
+import one.digital.experts.productcatalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/product")
 public class ProductController {
+
+  ProductService productService;
+
   @Autowired
-  private ProductRepository productRepository;
+  public ProductController(ProductService productService) {
+    this.productService = productService;
+  }
 
   @RequestMapping(method = RequestMethod.POST)
-  Product create(@RequestBody Product product) {
-    return productRepository.save(product);
+  void create(@RequestBody Product product){
+    productService.save(product);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  Optional<Product> findById(@PathVariable Integer id) {
-    return productRepository.findById(id);
+  Product findById(@PathVariable String id)
+  {
+    return productService.findById(id);
   }
+
+  @GetMapping
+  List<Product> findAll(){
+    return productService.findAll();
+  }
+
 }
