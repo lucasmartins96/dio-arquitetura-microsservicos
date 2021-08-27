@@ -14,19 +14,17 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2020.0.3")
-	set('testcontainersVersion', "1.15.3")
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-config-server'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
 }
 
 dependencyManagement {
 	imports {
-		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
 }
